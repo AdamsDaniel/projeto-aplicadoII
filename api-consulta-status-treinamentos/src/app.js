@@ -6,13 +6,12 @@ const bodyParser = require('body-parser')
 const ejs = require('ejs')
 const session = require('express-session')
 const flash = require('connect-flash')
-
 const db = require('./database')
+const cors = require('cors')
 
-//Modulos extrenos
+//Modulos externos
 const routes = require('./routes/routes')
 const erro404 = require('./middlewares/404')
-//const refreshDatas = require('./controllers/refresh')
 const routerColaborador = require('./routes/colaborador/colaboradorRoute')
 const routerStatus = require('./routes/status/statusRoute')
 const routerTreinamento = require('./routes/treinamentos/treinamentosRoute')
@@ -28,6 +27,14 @@ const app = express()
 //Configuração do Dotenv
 dotenv.config()
 
+// CORS - deve ficar no início
+app.use(cors({
+  origin: ['http://localhost:3000', 'http://localhost:3031'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
+}))
+
 //Configurando express-session
 app.use(session({
     secret: process.env.SECRET_SESSION,
@@ -35,11 +42,9 @@ app.use(session({
     saveUninitialized: true
 }));
 
-
 // Usar connect-flash
 app.use(flash());
 app.use(cookieParser())
-
 
 // Middleware para passar mensagens para a view
 app.use((req, res, next) => {
@@ -48,15 +53,11 @@ app.use((req, res, next) => {
     next();
 });
 
-
 //Utilizando bodyParser
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
-
-
 
 // Configurando o EJS
 app.set('view engine', 'ejs');
@@ -65,6 +66,7 @@ app.set('views', __dirname + '/views');
 //Definir public
 app.use(express.static(path.join(__dirname, 'public')))
 
+// Rotas
 app.use('/', routes)
 app.use('/', routerColaborador)
 app.use('/', routerStatus)
@@ -75,12 +77,8 @@ app.use('/', autenticationRoute)
 app.use('/', downloadsRoute)
 app.use('/', exportRoute)
 
-
-
-
 //Middleware 404
 app.use(erro404);
 
 const PORT = Number(process.env.API_PORT)
-
-app.listen(PORT, console.log('Servidor rondando!'))
+app.listen(PORT, console.log('Servidor rodando!'))
