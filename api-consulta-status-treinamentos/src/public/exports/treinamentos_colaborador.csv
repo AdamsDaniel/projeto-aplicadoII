@@ -1,5 +1,6 @@
 matricula,treinamento,status,inicio,termino
 3581,Manutenção de Equipamentos,Não Possui,10/01/2024,16/01/2024
+1283,Suporte Técnico,Vencido,02/02/2024,25/04/2024
 1867,Conduta em Trabalho,Vencido,02/02/2024,25/04/2024
 2121,Suporte Técnico,Não Possui,04/01/2024,01/02/2024
 3581,Máquinas Agrícolas,Não Possui,04/01/2024,01/02/2024
@@ -11,6 +12,5 @@ matricula,treinamento,status,inicio,termino
 1283,Conduta em Trabalho,Vencido,06/10/2023,20/10/2023
 1283,Máquinas Agrícolas,Em dia,03/09/2023,26/09/2023
 1867,Manutenção de Equipamentos,Em dia,17/08/2023,30/08/2023
+1867,Suporte Técnico,Em dia,01/08/2023,14/08/2023
 1867,Inspeção,Em dia,20/07/2023,29/07/2023
-1129,Máquinas Agrícolas,Em dia,13/11/2024,15/11/2024
-1283,Manutenção de Equipamentos,Não Possui,02/02/2024,25/04/2024
