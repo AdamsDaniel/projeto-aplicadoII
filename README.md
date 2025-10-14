@@ -2,6 +2,12 @@
 
 Bem-vindo ao repositório do StatusCheck, uma aplicação completa para gerenciamento e visualização de status de treinamentos de colaboradores.
 
+Repositórios originais:
+
+- [https://github.com/ValeskaNishi/StatusCheckProjetoIntegrado.git](https://github.com/ValeskaNishi/StatusCheckProjetoIntegrado.git)
+- [https://github.com/CarlosMadridSS/api-consulta-status-treinamentos.git](https://github.com/CarlosMadridSS/api-consulta-status-treinamentos.git)
+- [https://github.com/CarlosMadridSS/client-auth.git](https://github.com/CarlosMadridSS/client-auth.git)
+
 ## Arquitetura
 
 Este repositório contém uma arquitetura de microsserviços, composta por três subprojetos principais:
