@@ -28,15 +28,11 @@ O que você precisa para instalar o software:
 
 Siga os passos abaixo para configurar o ambiente de desenvolvimento:
 
-1. **Clone o repositório:**
-   ```sh
-   git clone https://github.com/AdamsDaniel/projeto-aplicadoII.git
-   ```
-2. **Navegue até o diretório do frontend:**
+1. **Navegue até o diretório do frontend:**
    ```sh
    cd StatusCheckProjetoIntegrado
    ```
-3. **Instale as dependências:**
+2. **Instale as dependências:**
    ```sh
    npm install
    ```
