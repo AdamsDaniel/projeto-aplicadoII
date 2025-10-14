@@ -24,7 +24,7 @@ describe('Usuários devem realizar o gerenciamento do seu perfil e o crud de usu
 
         cy.get('#ultimo-nome').should('exist').type('Magalhães')
 
-        cy.get('#matricula').should('exist').type('4')
+        cy.get('#matricula').should('exist').type('4' + Math.floor(Math.random() * 100000))
 
         cy.get('#privilegio').should('exist').select('admin')
 

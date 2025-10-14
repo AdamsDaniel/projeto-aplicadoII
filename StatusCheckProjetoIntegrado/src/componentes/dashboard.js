@@ -7,8 +7,19 @@ import { FaSearch, FaThList, FaChartBar, FaUserCog, FaUsers } from 'react-icons/
 import { Link } from 'react-router-dom';
 import ImagemMascote from '../img/logomoderna.png';
 
+/**
+ * @file Componente de dashboard para visualização de dados de treinamentos.
+ * @author Omitted
+ * @see {@link https://www.chartjs.org/} para mais informações sobre Chart.js.
+ * @see {@link https://styled-components.com/} for more information on styled-components.
+ */
+
 ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Title, Tooltip, Legend);
 
+/**
+ * Container principal do componente Dashboard.
+ * @type {import('styled-components').StyledComponent<'div', any, {}, never>}
+ */
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -125,12 +136,37 @@ const ChartWrapper = styled.div`
   }    
 `;
 
+/**
+ * Componente que renderiza o dashboard com gráficos de dados de treinamentos.
+ *
+ * @returns {JSX.Element} O componente de dashboard.
+ */
 const Dashboard = () => {
+  /**
+   * Estado para armazenar a lista de colaboradores.
+   * @type {[Array<Object>, function(Array<Object>): void]}
+   */
   const [colaboradores, setColaboradores] = useState([]);
+
+  /**
+   * Estado para armazenar a lista de status de treinamento.
+   * @type {[Array<Object>, function(Array<Object>): void]}
+   */
   const [statusList, setStatusList] = useState([]);
+
+  /**
+   * Estado para armazenar os treinamentos dos colaboradores.
+   * @type {[Array<Object>, function(Array<Object>): void]}
+   */
   const [treinamentosColaborador, setTreinamentosColaborador] = useState([]);
 
+  /**
+   * Hook `useEffect` para buscar os dados da API quando o componente é montado.
+   */
   useEffect(() => {
+    /**
+     * Função assíncrona para buscar dados de colaboradores, status e treinamentos.
+     */
     const fetchData = async () => {
       try {
         const [colabRes, statusRes, treinosColabRes] = await Promise.all([

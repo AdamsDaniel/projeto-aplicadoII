@@ -1,56 +1,77 @@
-# Dependências do Computador
-  - Node.js (v20.18.0 LTS)
-    - npm (v10.9.0 ou superior)
+# StatusCheck - Serviço de Autenticação de Cliente
 
-# Primeiro Uso
+Este é o serviço de autenticação para o projeto StatusCheck. Ele lida com a autenticação de usuários e o gerenciamento de sessões.
 
-  Na pasta do projeto, instale as dependências do projeto com:
+## Visão Geral
 
-    npm install
+O serviço é construído com Node.js e Express e fornece endpoints para login, logout e verificação de status de autenticação. Ele funciona em conjunto com a API principal para garantir que apenas usuários autenticados possam acessar os recursos protegidos.
 
-# Rodando a Aplicação
+### Funcionalidades
 
-  Modo Desenvolvimento:
+- **Endpoint de Login**: Autentica os usuários com base em suas credenciais.
+- **Endpoint de Logout**: Encerra a sessão do usuário.
+- **Verificação de Autenticação**: Permite que o frontend verifique se o usuário está autenticado.
 
-    npm run dev
+## Começando
 
-  Modo Produção
+Estas instruções fornecerão uma cópia do serviço em funcionamento na sua máquina local para fins de desenvolvimento e teste.
 
-    npm run start
+### Pré-requisitos
 
-# Endpoints
+- [Node.js](https://nodejs.org/) (v20.18.0 LTS ou superior)
+- [npm](https://www.npmjs.com/) (v10.9.0 ou superior)
 
-  ## Login (method POST)
+### Instalação
 
-    http://localhost:3031/login
+1. **Navegue até o diretório `client-auth`:**
+   ```sh
+   cd client-auth
+   ```
+2. **Instale as dependências:**
+   ```sh
+   npm install
+   ```
+### Executando a Aplicação
+- **Modo de Desenvolvimento:**
+  ```sh
+  npm run dev
+  ```
+- **Modo de Produção:**
+  ```sh
+  npm run start
+  ```
+O serviço estará disponível em `http://localhost:3031`.
 
-  Input (exemplo)
-  
-    {
-      "register": 1,
-      "password": "12345678"
-    }
+## Endpoints
 
-  Outputs
-  - {message: "Já há um usuário autenticado!"}
-  - {message: "Usuário não encontrado"}
-  - {message: "Senha inexistente"}
-  - {message: "Senha incorreta"}
+### `POST /login`
 
-  ## Is Authenticated (method GET)
-  
-      http://localhost:3031/is-authenticated
-      
-  Outputs
-  - {message: "Usuário autenticado"}
-  - {message: "Nenhum usuário autenticado."}
+Autentica um usuário.
 
+- **Corpo da Requisição (JSON):**
+  ```json
+  {
+    "register": 1,
+    "password": "12345678"
+  }
+  ```
+- **Respostas:**
+  - `200 OK`: `{ "message": "Usuário autenticado." }`
+  - `401 Unauthorized`: `{ "message": "Senha incorreta" }`
+  - `404 Not Found`: `{ "message": "Usuário não encontrado" }`
 
-  ## Logout (method GET)
-    
-    http://localhost:3031/logout
+### `GET /is-authenticated`
 
-  Outputs
-  - {message: "Logout efetuado com sucesso!"}
-  - {message: "Nenhum usuário autenticado para efetuar logout."}
+Verifica se o usuário está autenticado.
 
+- **Respostas:**
+  - `200 OK`: `{ "message": "Usuário autenticado" }`
+  - `401 Unauthorized`: `{ "message": "Nenhum usuário autenticado." }`
+
+### `GET /logout`
+
+Faz logout do usuário.
+
+- **Respostas:**
+  - `200 OK`: `{ "message": "Logout efetuado com sucesso!" }`
+  - `401 Unauthorized`: `{ "message": "Nenhum usuário autenticado para efetuar logout." }`

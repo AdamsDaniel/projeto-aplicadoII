@@ -1,145 +1,96 @@
-# Dependências do Computador
-  - Node.js (v20.18.0 LTS)
-    - npm (v10.9.0 ou superior)
-    - npx (v10.9.0 ou superior) 
-  - Docker (certificar instalação de docker-compose)
-  - Git
+# StatusCheck - API de Consulta de Status de Treinamentos
 
-# Inicializando pela primeira vez
+Esta é a API backend para o projeto StatusCheck. Ela gerencia a lógica de negócios, a interação com o banco de dados e fornece endpoints para o frontend.
 
-  # Diretório: /docker
-  
-  // 1- Subir containers (banco de dados e SGBD):
-  
-    docker-compose -f docker-compose-postgres.yaml up -d
+## Visão Geral
 
-  // Acessar pgadmin:
-  
-    http://localhost:5050/
+A API é construída com Node.js e Express, seguindo uma arquitetura que separa as responsabilidades em rotas, controladores e modelos. Ela se conecta a um banco de dados PostgreSQL para persistir os dados.
 
-  // Inserir credenciais
-  
-  usuario
-  
-    admin@root.com
+### Funcionalidades
 
-  senha
+- **Autenticação de Usuários**: Gerencia o login e as sessões dos usuários.
+- **Operações CRUD**: Fornece endpoints para Criar, Ler, Atualizar e Excluir dados relacionados a colaboradores, treinamentos e status.
+- **Validação de Dados**: Garante a integridade dos dados antes de serem salvos no banco de dados.
+- **Middleware**: Utiliza middlewares para tratamento de erros, autenticação e outras funcionalidades transversais.
 
-    123456
+## Começando
 
-  //Criar novo servidor
+Estas instruções fornecerão uma cópia do projeto em funcionamento na sua máquina local para fins de desenvolvimento e teste.
 
-  General
-  
-  - definir nome
+### Pré-requisitos
 
-  Connection
+- [Node.js](https://nodejs.org/) (v20.18.0 LTS ou superior)
+- [npm](https://www.npmjs.com/) (v10.9.0 ou superior)
+- [Docker](https://www.docker.com/) (com docker-compose)
+- [Git](https://git-scm.com/)
 
-  - host name: inserir nome do container do postgres
-  - port: 5432 (padrão)
-  - maintenance database: postgres
-  - username: postgres
-  - password: 123456
+### Instalação
 
-  # Diretório: / (raíz)
-  
-  // 1- Instalar dependências:
-    
-    npm install --save-dev
+#### 1. Configuração do Banco de Dados com Docker
 
-  *Caso apareça algum aviso de vulnerabilidade, use:
+No diretório `/docker`:
 
-    npm update
+```sh
+docker-compose -f docker-compose-postgres.yaml up -d
+```
+Acesse o pgAdmin em [http://localhost:5050/](http://localhost:5050/) e configure um novo servidor com as seguintes credenciais:
 
-  e depois:
+- **Host**: `postgres` (ou o nome do container do seu banco de dados)
+- **Port**: `5432`
+- **Username**: `postgres`
+- **Password**: `123456`
 
-    npm audit fix
-    
-  //2 - Criar tabelas:
-  
-    npx sequelize-cli db:create
+#### 2. Instalação das Dependências
 
-  //3 - Migrar tabelas:
-  
-    npx sequelize-cli db:migrate
-    
-  //4 - Inicializar projeto:
-  
-  Modo desenvolvimento:
-    
-    npm run dev
+No diretório raiz do projeto:
 
-# ----------------Teste de Funcionalidades---------------------
-  Antes de começar a utilizar o sistema, teste as funcionalidades com:
+```sh
+npm install --save-dev
+```
+Se encontrar vulnerabilidades, execute:
+```sh
+npm update
+npm audit fix
+```
+#### 3. Migração do Banco de Dados
+```sh
+npx sequelize-cli db:create
+npx sequelize-cli db:migrate
+```
+#### 4. Executando a Aplicação
+Modo de desenvolvimento:
+```sh
+npm run dev
+```
+A API estará disponível em `http://localhost:3030`.
 
-    npm run test:cypress
+## Testes
 
-  Caso prefira utilizar a interface gráfica do Cypress, para visualizar os testes nas specs específicas, use:
+Para testar as funcionalidades, utilize os seguintes comandos:
 
-    npm run test:cypress:open
+- **Executar testes em modo headless:**
+  ```sh
+  npm run test:cypress
+  ```
+- **Abrir a interface gráfica do Cypress:**
+  ```sh
+  npm run test:cypress:open
+  ```
+Relatórios de teste e capturas de tela estarão disponíveis nos diretórios `cypress/results` e `cypress/screenshots`.
 
-  //Em caso de falhas
+## Endpoints da API
 
-  Você poderá analisar os relatórios com mais calma em: ~/cypress/results e analisar as capturas de tela que referenciam o momento das falhas em ~/cypress/screenshots
+Para uma lista completa dos endpoints, autentique-se como 'master' e acesse a documentação da API em `http://localhost:3030/`.
 
-# ----------------Utilização da API---------------------
-  Para visualizar os end-points, autentique-se como 'master' e acesse:
+## Variáveis de Ambiente
 
-    http://localhost:3030/
+As configurações de ambiente, como credenciais do banco de dados e senhas de usuários, estão no arquivo `.env`.
 
+## Funcionamento
 
-# --------------Rotas da Aplicação---------------
+A API oferece funcionalidades para importação e exportação de dados em formato CSV. Os modelos de planilha podem ser baixados na seção 'Baixar Modelos'. É crucial que a estrutura dos modelos não seja alterada para garantir a compatibilidade.
 
-  Para efetuar o login e começar a utilizar a aplicação, acesse:
+## Observações
 
-  http://localhost:3030/admin/login
-
-# ----------Informações de Ambiente--------------
-
-  Caso precise encontrar ou alterar alguma informação específica, acesse o arquivo '.env'
-
-  Isso incluirá a senha do usuário master.
-
-# ----------------Funcionamento------------------
-
-  //Desenvolvimento
-
-  Para testar a importação dos dados, acesse a secção 'Baixar Modelos' depois acesse a secção 'Importar Dados' insira os modelos nos seus respectivos campos.
-
-  // Em uso geral
-
-  Para começar a adicionar dados no gerenciamento nas planilhas, você pode começar selecionando-as e adicionando os dados, um a um.
-
-  Se você possuir dados em outras planilhas e desejar enquadrar na aplicação, baixe os modelos de planilha, em formato CSV, através da secção 'Baixar Modelos' e converta para o formato do seu gerenciador de planilhas.
-
-  Após adicionar os dados, conforme organizados nos modelos, converta novamente para CSV e importe-os na secção 'Importar Dados'.
-
-  Atente-se que as estruturas dos modelos não devem ser alteradas, pois o sistema não aceitará mudanças de estrutura e tipos de dados.
-
-  Ao fazer o processo de importação, todos os dados das planilhas serão sobrescritos.
-
-  Você também pode adicionar os dados através do sistema e exportá-los através da secção 'Exportar Dados'
-
-# ---------------Observações---------------------
-
-De aplicação:
-
-- O usuário master não pode trocar a sua própria senha por meio desta aplicação.
-- Usuários não poderão alterar usuários que sejam de mesmo nível.
-- Se você efetuar uma busca, para um campo numérico, como a matrícula, a busca será literal.
-
-- A aplicação está sendo executada em modo de desenvolvimento. Fica a critério de quem implementar para fazer as modificações necessárias para a produção.
-
-  Basta modificar a variável de ambiente .env->NODE_ENV para:
-  
-      production
-
-  E inicializar a aplicação com:
-
-      npm run start
-
-
-# ---------------Erros Comuns---------------------
-
-  //Banco de Dados
-  Se seu computador estiver rodando um servidor postgres e você subir o container para esta aplicação, na criação do banco de dados e na migração das tabelas, ocorrerá um erro. Desinstale o postgres ou derrube todos os serviços que estejam utilizando a porta 5432 e reinicialize o container do postgres da aplicação.
+- O usuário 'master' não pode alterar sua própria senha através da aplicação.
+- A aplicação está configurada para o modo de desenvolvimento. Para produção, altere a variável `NODE_ENV` no arquivo `.env` para `production` e inicie com `npm run start`.

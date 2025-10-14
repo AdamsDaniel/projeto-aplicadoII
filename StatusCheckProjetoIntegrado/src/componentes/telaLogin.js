@@ -4,15 +4,50 @@ import './telaLogin.css';
 import logo from '../img/logomoderna.png';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * @file Componente de tela de login para autenticação de usuários.
+ * @author Omitted
+ */
 
+/**
+ * Componente que renderiza a tela de login, permitindo que os usuários insiram suas credenciais
+ * para acessar a plataforma.
+ *
+ * @returns {JSX.Element} O componente de tela de login.
+ */
 function TelaLogin() {
+    /**
+     * Estado para armazenar o valor do campo de login.
+     * @type {[string, function(string): void]}
+     */
     const [login, setLogin] = useState('');
+
+    /**
+     * Estado para armazenar o valor do campo de senha.
+     * @type {[string, function(string): void]}
+     */
     const [password, setPassword] = useState('');
+
+    /**
+     * Estado para armazenar mensagens de feedback para o usuário (e.g., sucesso ou erro no login).
+     * @type {[string, function(string): void]}
+     */
     const [message, setMessage] = useState('');
+
+    /**
+     * Hook do React Router para navegar para outras rotas programaticamente.
+     * @type {function(string): void}
+     */
     const navigate = useNavigate(); 
 
 
     
+    /**
+     * Lida com o envio do formulário de login. Envia as credenciais para a API,
+     * trata a resposta e redireciona o usuário em caso de sucesso.
+     *
+     * @param {React.FormEvent<HTMLFormElement>} e - O evento de envio do formulário.
+     */
     const handleLogin = async (e) => {
         e.preventDefault();
         try {

@@ -1,3 +1,9 @@
+/**
+ * @file Arquivo principal da API de consulta de status de treinamentos.
+ * @author Omitted
+ * @description Este arquivo configura o servidor Express, middlewares, rotas e inicia a aplicação.
+ */
+
 //Bibliotecas
 const express = require('express')
 const dotenv = require('dotenv')
@@ -24,10 +30,16 @@ const exportRoute = require('./routes/export/exportRoute')
 
 const app = express()
 
-//Configuração do Dotenv
+/**
+ * Configuração do Dotenv para carregar variáveis de ambiente do arquivo .env.
+ * @see {@link https://www.npmjs.com/package/dotenv}
+ */
 dotenv.config()
 
-// CORS - deve ficar no início
+/**
+ * Configuração do CORS (Cross-Origin Resource Sharing) para permitir requisições de origens específicas.
+ * @see {@link https://www.npmjs.com/package/cors}
+ */
 app.use(cors({
   origin: ['http://localhost:3000', 'http://localhost:3031'],
   credentials: true,
@@ -35,38 +47,59 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
 }))
 
-//Configurando express-session
+/**
+ * Configuração do express-session para gerenciamento de sessões.
+ * @see {@link https://www.npmjs.com/package/express-session}
+ */
 app.use(session({
     secret: process.env.SECRET_SESSION,
     resave: true,
     saveUninitialized: true
 }));
 
-// Usar connect-flash
+/**
+ * Utilização do connect-flash para mensagens flash (mensagens temporárias armazenadas na sessão).
+ * @see {@link https://www.npmjs.com/package/connect-flash}
+ */
 app.use(flash());
 app.use(cookieParser())
 
-// Middleware para passar mensagens para a view
+/**
+ * Middleware para passar mensagens flash para as views (templates EJS).
+ * @param {import('express').Request} req - O objeto de requisição.
+ * @param {import('express').Response} res - O objeto de resposta.
+ * @param {import('express').NextFunction} next - A próxima função de middleware.
+ */
 app.use((req, res, next) => {
     res.locals.success_msg = req.flash('success_msg');
     res.locals.error_msg = req.flash('error_msg');
     next();
 });
 
-//Utilizando bodyParser
+/**
+ * Utilização do body-parser para analisar corpos de requisições JSON e URL-encoded.
+ * @see {@link https://www.npmjs.com/package/body-parser}
+ */
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-// Configurando o EJS
+/**
+ * Configuração do EJS como view engine.
+ * @see {@link https://www.npmjs.com/package/ejs}
+ */
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
 
-//Definir public
+/**
+ * Definição do diretório `public` para servir arquivos estáticos.
+ */
 app.use(express.static(path.join(__dirname, 'public')))
 
-// Rotas
+/**
+ * Definição das rotas da aplicação.
+ */
 app.use('/', routes)
 app.use('/', routerColaborador)
 app.use('/', routerStatus)
