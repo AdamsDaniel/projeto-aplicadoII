@@ -41,3 +41,24 @@ Para executar o projeto completo, você precisará configurar e iniciar cada um 
 - [Git](https://git-scm.com/)
 
 Certifique-se de que todas as dependências estejam instaladas antes de prosseguir com a configuração de cada serviço.
+
+## Credenciais
+**Banco de dados:**
+- localhost:5050
+- admin@root.com
+- 123456
+
+**Api:**
+- http://localhost:3030/
+- Login - 1 | ??:MasterUser4AP!@#8080
+
+**Client Auth:**
+- http://localhost:3031/
+- http://localhost:3031/logout
+- http://localhost:3031/login
+- http://localhost:3031/is-autheticated
+
+**Front End:**
+- http://localhost:3000/
+- http://localhost:3000/statuscheck
+- Login - 1 | ??:MasterUser4AP!@#8080
